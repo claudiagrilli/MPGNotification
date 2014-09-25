@@ -485,8 +485,9 @@ static const CGFloat kColorAdjustmentLight = 0.35;
     
     self.windowLevel = [[[[UIApplication sharedApplication] delegate] window] windowLevel];
     
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     // Update windowLevel to make sure status bar does not interfere with the notification
-    [[[[UIApplication sharedApplication] delegate] window] setWindowLevel:UIWindowLevelStatusBar+1];
+//    [[[[UIApplication sharedApplication] delegate] window] setWindowLevel:UIWindowLevelStatusBar+1];
     
     // add the notification to the screen
     [window.subviews.lastObject addSubview:self];
@@ -572,7 +573,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
                 [UIView animateWithDuration:kLinearAnimationTime animations:^{
                     self.contentOffset = CGPointMake(0, CGRectGetHeight(self.bounds));
                 } completion:^(BOOL finished){
-                    [[[[UIApplication sharedApplication] delegate] window] setWindowLevel:self.windowLevel];
+//                    [[[[UIApplication sharedApplication] delegate] window] setWindowLevel:self.windowLevel];
                     
                     [self _destroyNotification];
                 }];
@@ -586,7 +587,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
                 snapBehaviour.damping = 0.75f;
                 [self.animator addBehavior:snapBehaviour];
                 
-                [[[[UIApplication sharedApplication] delegate] window] setWindowLevel:self.windowLevel];
+//                [[[[UIApplication sharedApplication] delegate] window] setWindowLevel:self.windowLevel];
                 break;
             }
         }
@@ -684,6 +685,8 @@ static const CGFloat kColorAdjustmentLight = 0.35;
 
 - (void)_destroyNotification {
     [self _dismissBlockHandler];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
     
     self.animator.delegate = nil;
     self.animator = nil;
